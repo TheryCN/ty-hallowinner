@@ -1,5 +1,6 @@
 package com.github.therycn.tyhallowinner.controller;
 
+import com.github.therycn.tyhallowinner.exception.ActivityNotFoundException;
 import com.github.therycn.tyhallowinner.exception.AthleteNotFoundException;
 import com.github.therycn.tyhallowinner.strava.StravaAccessTokenProvider;
 import com.github.therycn.tyhallowinner.strava.StravaClient;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("pumpkin")
@@ -41,7 +40,7 @@ public class PumpkinController {
             DetailedActivityDto updatedDetailedActivityDto = stravaClient.updateActivityById(accessToken, activityId, updatableActivityDto);
 
             return ResponseEntity.ok().body(updatedDetailedActivityDto);
-        } catch (AthleteNotFoundException e) {
+        } catch (AthleteNotFoundException | ActivityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

@@ -1,5 +1,6 @@
 package com.github.therycn.tyhallowinner.strava;
 
+import com.github.therycn.tyhallowinner.exception.ActivityNotFoundException;
 import com.github.therycn.tyhallowinner.strava.dto.DetailedActivityDto;
 import com.github.therycn.tyhallowinner.strava.dto.RefreshTokenDto;
 import com.github.therycn.tyhallowinner.strava.dto.UpdatableActivityDto;
@@ -10,6 +11,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -53,11 +55,14 @@ public class StravaClient {
         return responseEntity.getBody();
     }
 
-    public DetailedActivityDto getActivityById(String accessToken, long activityId) {
+    public DetailedActivityDto getActivityById(String accessToken, long activityId) throws ActivityNotFoundException {
         HttpHeaders headers = getHttpHeaders(accessToken);
-        ResponseEntity<DetailedActivityDto> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/activities/" + activityId, HttpMethod.GET, new HttpEntity<>(headers), DetailedActivityDto.class);
-
-        return responseEntity.getBody();
+        try {
+            ResponseEntity<DetailedActivityDto> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/activities/" + activityId, HttpMethod.GET, new HttpEntity<>(headers), DetailedActivityDto.class);
+            return responseEntity.getBody();
+        } catch (HttpClientErrorException e) {
+            throw new ActivityNotFoundException();
+        }
     }
 
     public DetailedActivityDto updateActivityById(String accessToken, long activityId, UpdatableActivityDto updatableActivityDto) {

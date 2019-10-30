@@ -2,6 +2,7 @@ package com.github.therycn.tyhallowinner.strava;
 
 import com.github.therycn.tyhallowinner.strava.dto.DetailedActivityDto;
 import com.github.therycn.tyhallowinner.strava.dto.RefreshTokenDto;
+import com.github.therycn.tyhallowinner.strava.dto.UpdatableActivityDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -46,13 +47,32 @@ public class StravaClient {
     public List<DetailedActivityDto> getAthleteLastTenActivities(String accessToken) {
         ParameterizedTypeReference<List<DetailedActivityDto>> parameterizedTypeReference = new ParameterizedTypeReference<List<DetailedActivityDto>>() {
         };
+        HttpHeaders headers = getHttpHeaders(accessToken);
+        ResponseEntity<List<DetailedActivityDto>> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/athlete/activities?page=1&per_page=10", HttpMethod.GET, new HttpEntity<String>(headers), parameterizedTypeReference);
+
+        return responseEntity.getBody();
+    }
+
+    public DetailedActivityDto getActivityById(String accessToken, long activityId) {
+        HttpHeaders headers = getHttpHeaders(accessToken);
+        ResponseEntity<DetailedActivityDto> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/activities/" + activityId, HttpMethod.GET, new HttpEntity<>(headers), DetailedActivityDto.class);
+
+        return responseEntity.getBody();
+    }
+
+    public DetailedActivityDto updateActivityById(String accessToken, long activityId, UpdatableActivityDto updatableActivityDto) {
+        HttpHeaders headers = getHttpHeaders(accessToken);
+        ResponseEntity<DetailedActivityDto> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/activities/" + activityId, HttpMethod.PUT, new HttpEntity<>(updatableActivityDto, headers), DetailedActivityDto.class);
+
+        return responseEntity.getBody();
+    }
+
+    private HttpHeaders getHttpHeaders(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + accessToken);
 
-        ResponseEntity<List<DetailedActivityDto>> responseEntity = restTemplate.exchange("https://www.strava.com/api/v3/athlete/activities?page=1&per_page=10", HttpMethod.GET, new HttpEntity<String>(headers), parameterizedTypeReference);
-
-        return responseEntity.getBody();
+        return headers;
     }
 
 }

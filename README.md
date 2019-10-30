@@ -9,7 +9,7 @@ https://www.strava.com/settings/api
 
 1. Get code
 
-GET https://www.strava.com/oauth/mobile/authorize?client_id=[YOUR_CLIENT_ID]&response_type=code&approval_prompt=auto&redirect_uri=http://localhost:8080/ty-hallowinner&scope=activity:read
+GET https://www.strava.com/oauth/mobile/authorize?client_id=[YOUR_CLIENT_ID]&response_type=code&approval_prompt=auto&redirect_uri=http://localhost:8080/ty-hallowinner&scope=activity:write,activity:read
 
 2. Get Access Token and Refresh Token
 

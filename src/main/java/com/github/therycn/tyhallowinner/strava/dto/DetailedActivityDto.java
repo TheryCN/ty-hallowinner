@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,28 +13,42 @@ import java.util.List;
 @ToString
 public class DetailedActivityDto {
 
-    /** The unique identifier of the activity. */
+    /**
+     * The unique identifier of the activity.
+     */
     private long id;
 
-    /** The name of the activity. */
+    /**
+     * The name of the activity.
+     */
     private String name;
 
-    /** The activity's distance, in meters. */
+    /**
+     * The activity's distance, in meters.
+     */
     private float distance;
 
-    /** The activity's moving time, in seconds. */
+    /**
+     * The activity's moving time, in seconds.
+     */
     @JsonProperty("moving_time")
     private int movingTime;
 
-    /** The time at which the activity was started. */
+    /**
+     * The time at which the activity was started.
+     */
     @JsonProperty("start_date")
     private Date startDate;
 
-    /** The activity's highest elevation, in meters. */
+    /**
+     * The activity's highest elevation, in meters.
+     */
     @JsonProperty("elev_high")
     private float elevHigh;
 
-    /** The activity's lowest elevation, in meters. */
+    /**
+     * The activity's lowest elevation, in meters.
+     */
     @JsonProperty("elev_low")
     private float elevLow;
 

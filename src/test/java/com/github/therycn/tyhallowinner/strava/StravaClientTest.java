@@ -17,8 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest(StravaClient.class)
 class StravaClientTest {
@@ -63,7 +63,7 @@ class StravaClientTest {
             // When
             List<DetailedActivityDto> detailedActivityDtoList = stravaClient.getAthleteLastTenActivities("ACCESS_TOKEN");
             Assertions.fail("Expected HttpServerErrorException");
-        }catch(Exception e){
+        } catch (Exception e) {
             // Then
             mockServer.verify();
             Assertions.assertThat(e).isInstanceOf(HttpServerErrorException.class);

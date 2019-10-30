@@ -1,18 +1,14 @@
 package com.github.therycn.tyhallowinner.service;
 
-import com.github.therycn.tyhallowinner.controller.ActivityController;
 import com.github.therycn.tyhallowinner.entity.Athlete;
 import com.github.therycn.tyhallowinner.exception.AthleteNotFoundException;
 import com.github.therycn.tyhallowinner.repository.AthleteRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AthleteServiceTest {
 
@@ -21,7 +17,7 @@ class AthleteServiceTest {
     private AthleteRepository athleteRepository;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         athleteRepository = Mockito.mock(AthleteRepository.class);
         athleteService = new AthleteService(athleteRepository);
     }

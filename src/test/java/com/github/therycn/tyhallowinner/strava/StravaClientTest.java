@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
 
 @RestClientTest(StravaClient.class)
 class StravaClientTest {
@@ -49,6 +51,24 @@ class StravaClientTest {
         // Then
         mockServer.verify();
         Assertions.assertThat(detailedActivityDtoList).containsExactly(detailedActivityDto);
+    }
+
+    @Test
+    void whenGetAthleteLastTenActivities_thenThrowHttpServerErrorException() {
+        // Given
+        mockServer.expect(requestTo("https://www.strava.com/api/v3/athlete/activities?page=1&per_page=10"))
+                .andRespond(withServerError());
+
+        try {
+            // When
+            List<DetailedActivityDto> detailedActivityDtoList = stravaClient.getAthleteLastTenActivities("ACCESS_TOKEN");
+            Assertions.fail("Expected HttpServerErrorException");
+        }catch(Exception e){
+            // Then
+            mockServer.verify();
+            Assertions.assertThat(e).isInstanceOf(HttpServerErrorException.class);
+        }
+
     }
 
 }

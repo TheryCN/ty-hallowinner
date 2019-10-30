@@ -39,6 +39,7 @@ public class StravaClient {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         ResponseEntity<RefreshTokenDto> stravaRefreshTokenResponseEntity = restTemplate.postForEntity("https://www.strava.com/api/v3/oauth/token", request, RefreshTokenDto.class);
+
         return stravaRefreshTokenResponseEntity.getBody();
     }
 

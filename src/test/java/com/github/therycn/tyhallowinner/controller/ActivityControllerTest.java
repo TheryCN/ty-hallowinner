@@ -23,14 +23,14 @@ class ActivityControllerTest {
     private StravaAccessTokenProvider stravaAccessTokenProvider;
 
     @BeforeEach
-    public void init() {
+    void init() {
         stravaClient = Mockito.mock(StravaClient.class);
         stravaAccessTokenProvider = Mockito.mock(StravaAccessTokenProvider.class);
         activityController = new ActivityController(stravaClient, stravaAccessTokenProvider);
     }
 
     @Test
-    public void whenHelloActivity_thenReturnHello() {
+    void whenHelloActivity_thenReturnHello() {
         // Given
         // When
         ResponseEntity<String> activityResponseEntity = activityController.helloActivity();
@@ -40,12 +40,12 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void whenGetAthleteLastTenActivities_thenReturnDetailedActivityDto() throws AthleteNotFoundException {
+    void whenGetAthleteLastTenActivities_thenReturnDetailedActivityDto() throws AthleteNotFoundException {
         // Given
         String accessToken = "ACCESS_TOKEN";
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(accessToken);
 
-        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1l, "Running", "", 10000f, 600, null, 100f, 0f, 0f);
+        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1L, "Running", "", 10000f, 600, null, 100f, 0f, 0f);
         Mockito.when(stravaClient.getAthleteLastTenActivities(accessToken)).thenReturn(Arrays.asList(detailedActivityDto));
 
         // When
@@ -60,7 +60,7 @@ class ActivityControllerTest {
     }
 
     @Test
-    public void whenGetAthleteLastTenActivities_thenReturnNotFound() throws AthleteNotFoundException {
+    void whenGetAthleteLastTenActivities_thenReturnNotFound() throws AthleteNotFoundException {
         // Given
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenThrow(new AthleteNotFoundException());
 

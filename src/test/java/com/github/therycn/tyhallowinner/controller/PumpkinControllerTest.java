@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 class PumpkinControllerTest {
 
-    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
     private PumpkinController pumpkinController;
 
@@ -29,7 +29,7 @@ class PumpkinControllerTest {
     private PumpkinService pumpkinService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         stravaClient = Mockito.mock(StravaClient.class);
         stravaAccessTokenProvider = Mockito.mock(StravaAccessTokenProvider.class);
         pumpkinService = Mockito.mock(PumpkinService.class);
@@ -37,9 +37,9 @@ class PumpkinControllerTest {
     }
 
     @Test
-    public void whenAddPumpkin_thenReturnDetailedActivityDto() throws AthleteNotFoundException, ActivityNotFoundException {
+    void whenAddPumpkin_thenReturnDetailedActivityDto() throws AthleteNotFoundException, ActivityNotFoundException {
         // Given
-        long activityId = 1l;
+        long activityId = 1L;
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(ACCESS_TOKEN);
 
         DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", "", 10000f, 600, null, 100f, 0f, 0f);
@@ -48,7 +48,7 @@ class PumpkinControllerTest {
         PumpkinStats pumpkinStats = new PumpkinStats(2.5407693f, 127.03847f, 825.75006f);
         Mockito.when(pumpkinService.getPumpkinStatsByCalories(detailedActivityDto.getCalories())).thenReturn(pumpkinStats);
 
-        UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto("Morning Run\uD83C\uDF83", pumpkinStats.toString());
+        UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto("Morning Run \uD83C\uDF83", pumpkinStats.beautify());
         DetailedActivityDto updatedDetailedActivityDto = new DetailedActivityDto(activityId, updatableActivityDto.getName(), "", 10000f, 600, null, 100f, 0f, 0f);
         Mockito.when(stravaClient.updateActivityById(ACCESS_TOKEN, activityId, updatableActivityDto)).thenReturn(updatedDetailedActivityDto);
 
@@ -65,9 +65,9 @@ class PumpkinControllerTest {
     }
 
     @Test
-    public void whenAddPumpkin_thenReturnNotFound() throws AthleteNotFoundException, ActivityNotFoundException {
+    void whenAddPumpkin_thenReturnNotFound() throws AthleteNotFoundException, ActivityNotFoundException {
         // Given
-        long activityId = 1l;
+        long activityId = 1L;
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(ACCESS_TOKEN);
 
         Mockito.when(stravaClient.getActivityById(ACCESS_TOKEN, activityId)).thenThrow(new ActivityNotFoundException());
@@ -83,9 +83,9 @@ class PumpkinControllerTest {
     }
 
     @Test
-    public void whenGetPumpkinStatsAfterActivity_thenReturnPumpkinActivityStatsDto() throws AthleteNotFoundException, ActivityNotFoundException {
+    void whenGetPumpkinStatsAfterActivity_thenReturnPumpkinActivityStatsDto() throws AthleteNotFoundException, ActivityNotFoundException {
         // Given
-        long activityId = 1l;
+        long activityId = 1L;
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(ACCESS_TOKEN);
 
         DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", "", 10000f, 600, null, 100f, 0f, 3303.0f);

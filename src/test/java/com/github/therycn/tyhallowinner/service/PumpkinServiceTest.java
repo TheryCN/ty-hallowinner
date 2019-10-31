@@ -10,7 +10,7 @@ class PumpkinServiceTest {
     private PumpkinService pumpkinService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         pumpkinService = new PumpkinService();
     }
 

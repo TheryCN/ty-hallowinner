@@ -17,13 +17,13 @@ class AthleteServiceTest {
     private AthleteRepository athleteRepository;
 
     @BeforeEach
-    public void init() {
+    void init() {
         athleteRepository = Mockito.mock(AthleteRepository.class);
         athleteService = new AthleteService(athleteRepository);
     }
 
     @Test
-    public void whenGetAthleteNotExists_thenThrowAthleteNotFoundException() {
+    void whenGetAthleteNotExists_thenThrowAthleteNotFoundException() {
         // Given
         String username = "TEST_USER";
         // When
@@ -37,10 +37,10 @@ class AthleteServiceTest {
     }
 
     @Test
-    public void whenGetAthleteExists_thenReturnAthlete() throws AthleteNotFoundException {
+    void whenGetAthleteExists_thenReturnAthlete() throws AthleteNotFoundException {
         // Given
         String username = "TEST_USER";
-        Athlete expectedAthlete = new Athlete(1l, username, null, null, null);
+        Athlete expectedAthlete = new Athlete(1L, username, null, null, null);
         Mockito.when(athleteRepository.findByUsername(username)).thenReturn(Optional.of(expectedAthlete));
 
         // When

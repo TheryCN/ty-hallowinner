@@ -5,6 +5,8 @@ import com.github.therycn.tyhallowinner.exception.AthleteNotFoundException;
 import com.github.therycn.tyhallowinner.repository.AthleteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AthleteService {
 
@@ -20,5 +22,9 @@ public class AthleteService {
 
     public Athlete save(Athlete athlete) {
         return athleteRepository.save(athlete);
+    }
+
+    public List<Athlete> list() {
+        return athleteRepository.findAll();
     }
 }

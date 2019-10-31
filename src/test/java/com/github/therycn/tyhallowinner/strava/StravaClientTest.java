@@ -40,7 +40,7 @@ class StravaClientTest {
     void whenGetAthleteLastTenActivities_thenReturnDetailedActivityDtoList() throws JsonProcessingException {
         // Given
         ObjectMapper mapper = new ObjectMapper();
-        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1l, "Running", 10000f, 600, null, 100f, 0f, 0f);
+        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1l, "Running", "", 10000f, 600, null, 100f, 0f, 0f);
 
         mockServer.expect(requestTo("https://www.strava.com/api/v3/athlete/activities?page=1&per_page=10"))
                 .andRespond(withSuccess(mapper.writeValueAsString(Arrays.asList(detailedActivityDto)), MediaType.APPLICATION_JSON));
@@ -61,7 +61,7 @@ class StravaClientTest {
 
         try {
             // When
-            List<DetailedActivityDto> detailedActivityDtoList = stravaClient.getAthleteLastTenActivities("ACCESS_TOKEN");
+            stravaClient.getAthleteLastTenActivities("ACCESS_TOKEN");
             Assertions.fail("Expected HttpServerErrorException");
         } catch (Exception e) {
             // Then

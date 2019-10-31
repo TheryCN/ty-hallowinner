@@ -42,11 +42,14 @@ class PumpkinControllerTest {
         long activityId = 1l;
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(ACCESS_TOKEN);
 
-        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", 10000f, 600, null, 100f, 0f, 0f);
+        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", "", 10000f, 600, null, 100f, 0f, 0f);
         Mockito.when(stravaClient.getActivityById(ACCESS_TOKEN, activityId)).thenReturn(detailedActivityDto);
 
-        UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto("Morning Run\uD83C\uDF83");
-        DetailedActivityDto updatedDetailedActivityDto = new DetailedActivityDto(activityId, updatableActivityDto.getName(), 10000f, 600, null, 100f, 0f, 0f);
+        PumpkinStats pumpkinStats = new PumpkinStats(2.5407693f, 127.03847f, 825.75006f);
+        Mockito.when(pumpkinService.getPumpkinStatsByCalories(detailedActivityDto.getCalories())).thenReturn(pumpkinStats);
+
+        UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto("Morning Run\uD83C\uDF83", pumpkinStats.toString());
+        DetailedActivityDto updatedDetailedActivityDto = new DetailedActivityDto(activityId, updatableActivityDto.getName(), "", 10000f, 600, null, 100f, 0f, 0f);
         Mockito.when(stravaClient.updateActivityById(ACCESS_TOKEN, activityId, updatableActivityDto)).thenReturn(updatedDetailedActivityDto);
 
         // When
@@ -85,7 +88,7 @@ class PumpkinControllerTest {
         long activityId = 1l;
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(ACCESS_TOKEN);
 
-        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", 10000f, 600, null, 100f, 0f, 3303.0f);
+        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(activityId, "Morning Run", "", 10000f, 600, null, 100f, 0f, 3303.0f);
         Mockito.when(stravaClient.getActivityById(ACCESS_TOKEN, activityId)).thenReturn(detailedActivityDto);
 
         PumpkinStats pumpkinStats = new PumpkinStats(2.5407693f, 127.03847f, 825.75006f);

@@ -45,7 +45,7 @@ class ActivityControllerTest {
         String accessToken = "ACCESS_TOKEN";
         Mockito.when(stravaAccessTokenProvider.getAccessToken(Mockito.anyString())).thenReturn(accessToken);
 
-        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1l, "Running", 10000f, 600, null, 100f, 0f, 0f);
+        DetailedActivityDto detailedActivityDto = new DetailedActivityDto(1l, "Running", "", 10000f, 600, null, 100f, 0f, 0f);
         Mockito.when(stravaClient.getAthleteLastTenActivities(accessToken)).thenReturn(Arrays.asList(detailedActivityDto));
 
         // When

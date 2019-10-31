@@ -12,4 +12,6 @@ public class UpdatableActivityDto {
 
     private String name;
 
+    private String description;
+
 }

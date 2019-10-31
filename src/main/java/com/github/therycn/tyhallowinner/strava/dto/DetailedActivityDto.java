@@ -23,6 +23,8 @@ public class DetailedActivityDto {
      */
     private String name;
 
+    private String description;
+
     /**
      * The activity's distance, in meters.
      */

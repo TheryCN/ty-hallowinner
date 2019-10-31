@@ -41,7 +41,7 @@ public class PumpkinController {
 
             // Add pumpkin icon to the title + description
             PumpkinStats pumpkinStatsByCalories = pumpkinService.getPumpkinStatsByCalories(detailedActivityDto.getCalories());
-            UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto(detailedActivityDto.getName() + "\uD83C\uDF83", detailedActivityDto.getDescription() + pumpkinStatsByCalories.toString());
+            UpdatableActivityDto updatableActivityDto = new UpdatableActivityDto(detailedActivityDto.getName() + " \uD83C\uDF83", detailedActivityDto.getDescription() + pumpkinStatsByCalories.beautify());
 
             // Update activity
             DetailedActivityDto updatedDetailedActivityDto = stravaClient.updateActivityById(accessToken, activityId, updatableActivityDto);

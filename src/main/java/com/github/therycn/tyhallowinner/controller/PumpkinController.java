@@ -1,7 +1,10 @@
 package com.github.therycn.tyhallowinner.controller;
 
+import com.github.therycn.tyhallowinner.dto.PumpkinActivityStatsDto;
+import com.github.therycn.tyhallowinner.entity.PumpkinStats;
 import com.github.therycn.tyhallowinner.exception.ActivityNotFoundException;
 import com.github.therycn.tyhallowinner.exception.AthleteNotFoundException;
+import com.github.therycn.tyhallowinner.service.PumpkinService;
 import com.github.therycn.tyhallowinner.strava.StravaAccessTokenProvider;
 import com.github.therycn.tyhallowinner.strava.StravaClient;
 import com.github.therycn.tyhallowinner.strava.dto.DetailedActivityDto;
@@ -20,9 +23,12 @@ public class PumpkinController {
 
     private StravaAccessTokenProvider stravaAccessTokenProvider;
 
-    public PumpkinController(StravaClient stravaClient, StravaAccessTokenProvider stravaAccessTokenProvider) {
+    private PumpkinService pumpkinService;
+
+    public PumpkinController(StravaClient stravaClient, StravaAccessTokenProvider stravaAccessTokenProvider, PumpkinService pumpkinService) {
         this.stravaClient = stravaClient;
         this.stravaAccessTokenProvider = stravaAccessTokenProvider;
+        this.pumpkinService = pumpkinService;
     }
 
     @GetMapping
@@ -40,6 +46,21 @@ public class PumpkinController {
             DetailedActivityDto updatedDetailedActivityDto = stravaClient.updateActivityById(accessToken, activityId, updatableActivityDto);
 
             return ResponseEntity.ok().body(updatedDetailedActivityDto);
+        } catch (AthleteNotFoundException | ActivityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    @RequestMapping("/eat/{activityId}")
+    public ResponseEntity<PumpkinActivityStatsDto> getPumpkinStatsAfterActivity(@PathVariable long activityId) {
+        try {
+            String accessToken = stravaAccessTokenProvider.getAccessToken("thry_charasson");
+            // Retrieve activity
+            DetailedActivityDto detailedActivityDto = stravaClient.getActivityById(accessToken, activityId);
+
+            PumpkinStats pumpkinStatsByCalories = pumpkinService.getPumpkinStatsByCalories(detailedActivityDto.getCalories());
+            return ResponseEntity.ok().body(new PumpkinActivityStatsDto(detailedActivityDto.getId(), detailedActivityDto.getName(), detailedActivityDto.getDistance(), detailedActivityDto.getMovingTime(), detailedActivityDto.getCalories(), pumpkinStatsByCalories.getPumpkinsYouCanEat(), pumpkinStatsByCalories.getProteins(), pumpkinStatsByCalories.getCarbohydrates()));
         } catch (AthleteNotFoundException | ActivityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

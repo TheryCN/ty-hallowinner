@@ -52,4 +52,9 @@ public class DetailedActivityDto {
     @JsonProperty("elev_low")
     private float elevLow;
 
+    /**
+     * The number of kilocalories consumed during this activity.
+     */
+    private float calories;
+
 }

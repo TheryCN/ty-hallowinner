@@ -19,7 +19,7 @@ public class PumpkinStats {
     private float carbohydrates;
 
     public String beautify() {
-        return MessageFormat.format("You can eat {0} pumkin(s) for {1}g proteins and {2}g carbohydrates \uD83D\uDC7B",
+        return MessageFormat.format("You can eat {0} pumpkin(s) for {1}g proteins and {2}g carbohydrates \uD83D\uDC7B",
                 pumpkinsYouCanEat, proteins, carbohydrates);
     }
 

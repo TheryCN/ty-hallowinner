@@ -4,6 +4,7 @@ import com.github.therycn.tyhallowinner.dto.AthleteDto;
 import com.github.therycn.tyhallowinner.entity.Athlete;
 import com.github.therycn.tyhallowinner.service.AthleteService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("athlete")
+@CrossOrigin
 public class AthleteController {
 
     private AthleteService athleteService;

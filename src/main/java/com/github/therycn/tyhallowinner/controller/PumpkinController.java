@@ -10,13 +10,11 @@ import com.github.therycn.tyhallowinner.strava.StravaClient;
 import com.github.therycn.tyhallowinner.strava.dto.DetailedActivityDto;
 import com.github.therycn.tyhallowinner.strava.dto.UpdatableActivityDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("pumpkin")
+@CrossOrigin
 public class PumpkinController {
 
     private StravaClient stravaClient;

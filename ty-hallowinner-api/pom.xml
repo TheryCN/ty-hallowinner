@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.therycn</groupId>
-	<artifactId>ty-hallowinner</artifactId>
+	<artifactId>ty-hallowinner-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ty-hallowinner</name>
+	<name>ty-hallowinner-api</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

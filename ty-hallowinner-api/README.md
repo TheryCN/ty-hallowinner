@@ -1,4 +1,4 @@
-# HalloWinneR
+# HalloWinneR API
 
 Strava API : How to get access Token ?
 This step will be done by the front.

@@ -26,7 +26,7 @@ class ActivitiesTable extends Component {
     if(this.props.activities) {
       activityRows = this.props.activities.map(activity => (
         <TableRow key={activity.id}>
-          <TableCell><a target="_blank" href={"https://www.strava.com/activities/" + activity.id}>{activity.name}</a></TableCell>
+          <TableCell><a target="_blank" rel="noopener noreferrer" href={"https://www.strava.com/activities/" + activity.id}>{activity.name}</a></TableCell>
           <TableCell>{moment(activity.start_date).format('LLL')}</TableCell>
           <TableCell><NumberFormat value={activity.distance / 1000} displayType={'text'} decimalScale={2} /></TableCell>
           <TableCell>{activity.elev_high}</TableCell>

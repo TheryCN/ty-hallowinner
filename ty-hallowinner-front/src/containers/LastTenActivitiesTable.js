@@ -3,7 +3,8 @@ import { fetchActivitiesCall, addPumpkinStatsCall } from '../api';
 import ActivitiesTable from '../components/ActivitiesTable';
 
 const mapStateToProps = state => ({
-  activities: state.activities
+  activities: state.activities,
+  updateActivitiesInProgress: state.updateActivitiesInProgress
 });
 
 const mapDispatchToProps = dispatch => ({

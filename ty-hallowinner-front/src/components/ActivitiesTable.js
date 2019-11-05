@@ -17,18 +17,22 @@ class ActivitiesTable extends Component {
     this.props.fetchActivities();
   }
 
+  disableAction(currentActivityId) {
+    return this.props.updateActivitiesInProgress.findIndex(activityId => activityId === currentActivityId) >= 0
+  }
+
   render() {
     let activityRows = [];
     if(this.props.activities) {
       activityRows = this.props.activities.map(activity => (
         <TableRow key={activity.id}>
-          <TableCell><a href={"https://www.strava.com/activities/" + activity.id}>{activity.name}</a></TableCell>
+          <TableCell><a target="_blank" href={"https://www.strava.com/activities/" + activity.id}>{activity.name}</a></TableCell>
           <TableCell>{moment(activity.start_date).format('LLL')}</TableCell>
           <TableCell><NumberFormat value={activity.distance / 1000} displayType={'text'} decimalScale={2} /></TableCell>
           <TableCell>{activity.elev_high}</TableCell>
           <TableCell>{activity.elev_low}</TableCell>
           <TableCell>
-            <Button variant="contained" onClick={() => this.props.addPumpkinStats(activity.id)}>
+            <Button variant="contained" onClick={() => this.props.addPumpkinStats(activity.id)} disabled={this.disableAction(activity.id)}>
               Add Pumpkin!
             </Button>
           </TableCell>
@@ -42,8 +46,8 @@ class ActivitiesTable extends Component {
             <TableCell>Name</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Distance (km)</TableCell>
-            <TableCell>D+ (m)</TableCell>
-            <TableCell>D- (m)</TableCell>
+            <TableCell>Dmax (m)</TableCell>
+            <TableCell>Dmin (m)</TableCell>
             <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>

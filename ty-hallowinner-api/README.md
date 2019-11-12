@@ -22,3 +22,27 @@ POST https://www.strava.com/oauth/token
 "grant_type":"authorization_code"
 }
 ```
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `mvn clean install`
+
+Creates and install the package.
+
+### `./aws_deploy.sh`
+
+The script use Elastic Beanstalk cli to setup environment variable and deploy the app build from maven command.
+
+Requirements : 
+
+a. Install aws cli && eb cli 
+ 
+b. Run `eb init ty-hallowinner-api --region eu-west-3`
+
+c. Add the following lines at the end of .elasticbeanstalk/config.yml :
+```yaml
+deploy:
+  artifact: target/ty-hallowinner-api.jar
+```

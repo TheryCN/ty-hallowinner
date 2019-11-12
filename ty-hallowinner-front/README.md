@@ -4,6 +4,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm run awsupload`
+
+Upload build directory to S3 Bucket.
+
+### `npm run awsdeploy`
+
+Host S3 Bucket as static website.
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />

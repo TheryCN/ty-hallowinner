@@ -18,7 +18,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "awsconfigure": "aws configure",
+    "awsupload": "aws s3 cp --recursive build s3://ty-hallowinner-front/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers",
+    "awsdeploy": "aws s3 website s3://ty-hallowinner-front/ --index-document index.html"
   },
   "eslintConfig": {
     "extends": "react-app"
